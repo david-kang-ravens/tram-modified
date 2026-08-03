@@ -42,12 +42,10 @@ setup(
                 'thirdparty/lietorch/lietorch/src/lietorch_gpu.cu',
                 'thirdparty/lietorch/lietorch/src/lietorch_cpu.cpp'],
             extra_compile_args={
-                'cxx': ['/O1', '/bigobj', '/GL-'],
-                'nvcc': ['-O0',
+                'cxx': ['-O2'],
+                'nvcc': ['-O2',
                     '-gencode=arch=compute_89,code=sm_89',
                     '-Xcudafe', '--diag_suppress=20012',
-                    '-Xcompiler', '/bigobj',
-                    '-Xcompiler', '/GL-',
                 ]
             }),
     ],

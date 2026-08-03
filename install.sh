@@ -2,13 +2,15 @@
 # conda create -n tram python=3.10 -y
 # conda activate tram
 
-conda install -c "nvidia/label/cuda-11.8.0" cuda-toolkit
+# Run if on Windows
+conda install -c "nvidia/label/cuda-11.8.0" cuda-toolkit 
 pip install torch==2.4.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install pytorch-lightning
 pip install 'git+https://github.com/facebookresearch/detectron2.git@a59f05630a8f205756064244bf5beb8661f96180'
 pip install "git+https://github.com/facebookresearch/pytorch3d.git@stable"
 pip install torch-scatter -f https://data.pyg.org/whl/torch-2.4.0+cu118.html
 
+# Run if on Windows, else brew install suitesparse
 conda install -c conda-forge suitesparse
 
 pip install pulp
