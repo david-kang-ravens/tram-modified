@@ -2,13 +2,24 @@
 # conda create -n tram python=3.10 -y
 # conda activate tram
 
+# Target GPU arch for CUDA source builds (Ada / RTX 40-series / L40 = 8.9).
+export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.9}"
+
 # Run if on Windows
 conda install -c "nvidia/label/cuda-11.8.0" cuda-toolkit 
 pip install torch==2.4.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install pytorch-lightning
-pip install 'git+https://github.com/facebookresearch/detectron2.git@a59f05630a8f205756064244bf5beb8661f96180'
-pip install "git+https://github.com/facebookresearch/pytorch3d.git@stable"
-pip install torch-scatter -f https://data.pyg.org/whl/torch-2.4.0+cu118.html
+
+# Required in the env itself so --no-build-isolation source builds can find them.
+# setuptools pinned <81 because 81+ removes pkg_resources, which detectron2 still imports.
+pip install --upgrade pip wheel
+pip install --upgrade "setuptools<81"
+pip install ninja
+
+# Source builds that `import torch` in setup.py: disable build isolation so the env's torch is visible.
+pip install --no-build-isolation 'git+https://github.com/facebookresearch/detectron2.git@a59f05630a8f205756064244bf5beb8661f96180'
+pip install --no-build-isolation "git+https://github.com/facebookresearch/pytorch3d.git@stable"
+pip install --no-build-isolation torch-scatter -f https://data.pyg.org/whl/torch-2.4.0+cu118.html
 
 # Run if on Windows, else brew install suitesparse
 conda install -c conda-forge suitesparse

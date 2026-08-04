@@ -18,7 +18,7 @@ setup(
             extra_compile_args={
                 'cxx': ['-O2'],
                 'nvcc': ['-O2',
-                    '-gencode=arch=compute_89,code=sm_89',
+                    '-gencode=arch=compute_75,code=sm_75',
                     '-Xcudafe', '--diag_suppress=20012',
                 ]
             }),
@@ -44,7 +44,7 @@ setup(
             extra_compile_args={
                 'cxx': ['-O2'],
                 'nvcc': ['-O2',
-                    '-gencode=arch=compute_89,code=sm_89',
+                    '-gencode=arch=compute_75,code=sm_75',
                     '-Xcudafe', '--diag_suppress=20012',
                 ]
             }),
